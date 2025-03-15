@@ -1,0 +1,51 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: ${APPLICATION_NAME:ms-pxg-api-v1}
+  cloud:
+    openfeign:
+      httpclient:
+        disable-ssl-validation: true
+        enabled: false
+        hc5:
+          enabled: true
+      client:
+        config:
+          default:
+            connect-timeout: 5000
+            read-timeout: 30000
+            loggerLevel: full
+  datasource:
+    url: jdbc:h2:mem:PXGdb:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  # H2 Console para consultas, http://localhost:8080/h2-console
+  h2:
+    console:
+      enabled: true
+springdoc:
+  swagger-ui:
+    use-root-path: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health"
+server:
+  port: 8080
+  servlet:
+    context-path: "/${APPLICATION_PREFIX:PXG-API/v1}"
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 30000
+        loggerLevel: full
