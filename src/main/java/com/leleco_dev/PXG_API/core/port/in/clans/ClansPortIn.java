@@ -6,8 +6,8 @@ import com.leleco_dev.PXG_API.core.port.in.clans.dto.request.UpdateClan;
 import com.leleco_dev.PXG_API.core.port.in.clans.dto.response.ClanResponseDTO;
 
 public interface ClansPortIn {
-    ClanResponseDTO getClanById(CreateClan createClan);
+    ClanResponseDTO createClanById(CreateClan createClan);
     ClanResponseDTO updateClan(String id, UpdateClan updateClan);
-    ClanResponseDTO findClanById(String id);
+    ClanResponseDTO findById(String id);
     void deleteClan(String id);
 }

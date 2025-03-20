@@ -5,20 +5,22 @@ import com.leleco_dev.PXG_API.core.port.out.clans.ClanRepositoryPortOut;
 import com.leleco_dev.PXG_API.infrastructure.persistente.h2.model.ClanEntity;
 import com.leleco_dev.PXG_API.infrastructure.persistente.h2.model.ClanRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.modelmapper.ModelMapper;
 
 import java.util.Optional;
-
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class ClanPersistence implements ClanRepositoryPortOut {
 
-    private final ClanRepository repository;
+    private  ClanRepository repository;
 
-    private final ModelMapper mapper;
+    private ModelMapper mapper;
+
+    public ClanPersistence(ClanRepository repository, ModelMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     @Override
     public Clan findById(String id) {
