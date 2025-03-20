@@ -8,10 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -32,5 +29,13 @@ public class ClanControllerImpl implements ClanController{
             @RequestHeader HttpHeaders headers) {
         ClanResponseDTO clanResponseDTO = clansPortIn.findById(id);
         return new ResponseEntity<>(clanResponseDTO, headers, HttpStatus.OK);
+    }
+
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<ClanResponseDTO> createClan(
+            @RequestBody ClanResponseDTO clanResponseDTO,
+            @RequestHeader HttpHeaders headers) {
+        ClanResponseDTO clanResponseDTO1 = clansPortIn.createClanById(clanResponseDTO);
+        return new ResponseEntity<>(clanResponseDTO1, headers, HttpStatus.CREATED);
     }
 }

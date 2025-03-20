@@ -2,11 +2,9 @@ package com.leleco_dev.PXG_API.core.application.service.clans;
 
 import com.leleco_dev.PXG_API.core.domain.entity.Clan;
 import com.leleco_dev.PXG_API.core.port.in.clans.ClansPortIn;
-import com.leleco_dev.PXG_API.core.port.in.clans.dto.request.CreateClan;
 import com.leleco_dev.PXG_API.core.port.in.clans.dto.request.UpdateClan;
 import com.leleco_dev.PXG_API.core.port.in.clans.dto.response.ClanResponseDTO;
 import com.leleco_dev.PXG_API.core.port.out.clans.ClanRepositoryPortOut;
-import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -23,8 +21,11 @@ public class ClanService implements ClansPortIn {
     }
 
     @Override
-    public ClanResponseDTO createClanById(CreateClan createClan) {
-        return null;
+    public ClanResponseDTO createClanById(ClanResponseDTO createClan) {
+        Clan clan = mapper.map(createClan, Clan.class);
+
+        clan = clanRepositoryPortOut.save(clan);
+        return mapper.map(clan, ClanResponseDTO.class);
     }
 
     @Override
