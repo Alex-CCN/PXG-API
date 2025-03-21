@@ -1,6 +1,7 @@
 package com.leleco_dev.PXG_API.api.rest.clans;
 
 import com.leleco_dev.PXG_API.core.port.in.clans.ClansPortIn;
+import com.leleco_dev.PXG_API.core.port.in.clans.dto.request.CreateClan;
 import com.leleco_dev.PXG_API.core.port.in.clans.dto.response.ClanResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -23,7 +26,8 @@ public class ClanControllerImpl implements ClanController{
         this.clansPortIn = clansPortIn;
     }
 
-    @Override
+
+    @GetMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<ClanResponseDTO> getClanById(
             @PathVariable(name = "Clan's id") String id,
             @RequestHeader HttpHeaders headers) {
@@ -33,9 +37,12 @@ public class ClanControllerImpl implements ClanController{
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<ClanResponseDTO> createClan(
-            @RequestBody ClanResponseDTO clanResponseDTO,
-            @RequestHeader HttpHeaders headers) {
-        ClanResponseDTO clanResponseDTO1 = clansPortIn.createClanById(clanResponseDTO);
-        return new ResponseEntity<>(clanResponseDTO1, headers, HttpStatus.CREATED);
+            @RequestBody @Valid CreateClan clanCreateResponseDTO
+           ) {
+
+
+        ClanResponseDTO clanResponseDTO = clansPortIn.createClanById(clanCreateResponseDTO);
+        //return new ResponseEntity<>(clanResponseDTO, HttpStatus.CREATED);
+        return  ResponseEntity.status(201).body(clanResponseDTO);
     }
 }

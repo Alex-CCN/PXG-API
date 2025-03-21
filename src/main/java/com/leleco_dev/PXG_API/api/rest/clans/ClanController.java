@@ -1,6 +1,7 @@
 package com.leleco_dev.PXG_API.api.rest.clans;
 
 
+import com.leleco_dev.PXG_API.core.port.in.clans.dto.request.CreateClan;
 import com.leleco_dev.PXG_API.core.port.in.clans.dto.response.ClanResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -15,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Tag("Contract for Clan's methods")
@@ -33,4 +36,15 @@ public interface ClanController {
             @RequestHeader HttpHeaders headers);
 
 
+    @Operation(summary = "Create a clan", tags = {"Clans"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Clan created", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ClanResponseDTO.class))}),
+            @ApiResponse(responseCode = "422", description = "If the clan could not be created with the informed data.", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ProblemDetail.class)) })
+    })
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<ClanResponseDTO> createClan(
+            @Parameter(description = "Informed data to be created") @RequestBody @Valid CreateClan clan
+            );
 }

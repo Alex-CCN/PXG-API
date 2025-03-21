@@ -2,28 +2,34 @@ package com.leleco_dev.PXG_API.core.application.service.clans;
 
 import com.leleco_dev.PXG_API.core.domain.entity.Clan;
 import com.leleco_dev.PXG_API.core.port.in.clans.ClansPortIn;
+import com.leleco_dev.PXG_API.core.port.in.clans.dto.request.CreateClan;
 import com.leleco_dev.PXG_API.core.port.in.clans.dto.request.UpdateClan;
 import com.leleco_dev.PXG_API.core.port.in.clans.dto.response.ClanResponseDTO;
 import com.leleco_dev.PXG_API.core.port.out.clans.ClanRepositoryPortOut;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+
 public class ClanService implements ClansPortIn {
     private ClanRepositoryPortOut clanRepositoryPortOut;
     private ModelMapper mapper;
 
+    @Autowired
     public ClanService(ClanRepositoryPortOut clanRepositoryPortOut, ModelMapper mapper) {
         this.clanRepositoryPortOut = clanRepositoryPortOut;
         this.mapper = mapper;
     }
 
     @Override
-    public ClanResponseDTO createClanById(ClanResponseDTO createClan) {
+    public ClanResponseDTO createClanById(CreateClan createClan) {
         Clan clan = mapper.map(createClan, Clan.class);
 
+        /*if(!clan.hasNameClans()) {
+            throw new RuntimeException("Clan name must be one of the  following: malefic\", \"wingeon\", \"ironhard\", \"volcanic\", \"seavell\", \"gardestrike\", \"orebound\", \"naturia\", \"psycraft\", \"railbolt");
+        }*/
         clan = clanRepositoryPortOut.save(clan);
         return mapper.map(clan, ClanResponseDTO.class);
     }
