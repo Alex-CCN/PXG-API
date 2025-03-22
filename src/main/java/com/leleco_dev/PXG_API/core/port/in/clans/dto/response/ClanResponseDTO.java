@@ -1,10 +1,7 @@
 package com.leleco_dev.PXG_API.core.port.in.clans.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -14,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClanResponseDTO {
-
+    @Setter(AccessLevel.NONE)
     private String id;
     @NotBlank(message = "Name is mandatory")
     private String name;

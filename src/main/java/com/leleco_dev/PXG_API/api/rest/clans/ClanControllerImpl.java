@@ -27,22 +27,23 @@ public class ClanControllerImpl implements ClanController{
     }
 
 
-    @GetMapping(consumes = "application/json", produces = "application/json")
+    //@GetMapping(consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/{id}", consumes = "application/json")
     public ResponseEntity<ClanResponseDTO> getClanById(
-            @PathVariable(name = "Clan's id") String id,
+            @PathVariable(name = "id") String id,
             @RequestHeader HttpHeaders headers) {
         ClanResponseDTO clanResponseDTO = clansPortIn.findById(id);
-        return new ResponseEntity<>(clanResponseDTO, headers, HttpStatus.OK);
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(clanResponseDTO);
+
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<ClanResponseDTO> createClan(
             @RequestBody @Valid CreateClan clanCreateResponseDTO
            ) {
-
-
         ClanResponseDTO clanResponseDTO = clansPortIn.createClanId(clanCreateResponseDTO);
-        //return new ResponseEntity<>(clanResponseDTO, HttpStatus.CREATED);
-        return  ResponseEntity.status(201).body(clanResponseDTO);
+        return  ResponseEntity.status(HttpStatus.CREATED).body(clanResponseDTO);
     }
 }

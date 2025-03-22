@@ -10,10 +10,8 @@ import java.util.UUID;
 
 @Data
 public class Clan {
-    //@GeneratedValue(generator = "UUID")
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
 
+    private String id;
     private String name;
     private String elements;
 

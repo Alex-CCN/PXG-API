@@ -7,10 +7,14 @@ import com.leleco_dev.PXG_API.core.port.in.clans.dto.request.UpdateClan;
 import com.leleco_dev.PXG_API.core.port.in.clans.dto.response.ClanResponseDTO;
 import com.leleco_dev.PXG_API.core.port.out.clans.ClanRepositoryPortOut;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.leleco_dev.PXG_API.core.application.service.clans.mapper.ClanResponseMapper.mapClanResponse;
+
+@Slf4j
 @Service
 
 public class ClanService implements ClansPortIn {
@@ -27,9 +31,9 @@ public class ClanService implements ClansPortIn {
     public ClanResponseDTO createClanId(CreateClan createClan) {
         Clan clan = mapper.map(createClan, Clan.class);
 
-        /*if(!clan.hasNameClans()) {
+        if(!clan.hasNameClans()) {
             throw new RuntimeException("Clan name must be one of the  following: malefic\", \"wingeon\", \"ironhard\", \"volcanic\", \"seavell\", \"gardestrike\", \"orebound\", \"naturia\", \"psycraft\", \"railbolt");
-        }*/
+        }
         clan = clanRepositoryPortOut.save(clan);
         return mapper.map(clan, ClanResponseDTO.class);
     }
@@ -41,8 +45,11 @@ public class ClanService implements ClansPortIn {
 
     @Override
     public ClanResponseDTO findById(String id) {
-        Clan clan = findClanById(id);
-        return mapper.map(clan, ClanResponseDTO.class);
+
+        var clan = findClanById(id);
+        log.info("Clan value before mapper: {}", clan);
+
+        return mapClanResponse(clan);
     }
 
     @Override
