@@ -41,7 +41,7 @@ public class ClanControllerImpl implements ClanController{
            ) {
 
 
-        ClanResponseDTO clanResponseDTO = clansPortIn.createClanById(clanCreateResponseDTO);
+        ClanResponseDTO clanResponseDTO = clansPortIn.createClanId(clanCreateResponseDTO);
         //return new ResponseEntity<>(clanResponseDTO, HttpStatus.CREATED);
         return  ResponseEntity.status(201).body(clanResponseDTO);
     }

@@ -1,29 +1,56 @@
 package com.leleco_dev.PXG_API.infrastructure.persistente.h2.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "CLAN")
-@AllArgsConstructor
-@Data
-@NoArgsConstructor
+@Table(name = "clan")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ClanEntity {
 
-    @EqualsAndHashCode.Include
     @Id
-    @Column(name = "ID")
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    private String id;
-
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "ELEMENTS")
+    @Column(name = "elements")
     private String elements;
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getElements() {
+        return this.elements;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setElements(String elements) {
+        this.elements = elements;
+    }
+
+    public String toString() {
+        return "ClanEntity(id=" + this.getId() + ", name=" + this.getName() + ", elements=" + this.getElements() + ")";
+    }
 }

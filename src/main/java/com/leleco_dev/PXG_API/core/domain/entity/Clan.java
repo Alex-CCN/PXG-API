@@ -1,6 +1,7 @@
 package com.leleco_dev.PXG_API.core.domain.entity;
 
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -9,9 +10,10 @@ import java.util.UUID;
 
 @Data
 public class Clan {
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private Long id;
+    //@GeneratedValue(generator = "UUID")
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
+
     private String name;
     private String elements;
 

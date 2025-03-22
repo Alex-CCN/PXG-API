@@ -14,17 +14,17 @@ import org.springframework.stereotype.Service;
 @Service
 
 public class ClanService implements ClansPortIn {
-    private ClanRepositoryPortOut clanRepositoryPortOut;
-    private ModelMapper mapper;
+    private final ClanRepositoryPortOut clanRepositoryPortOut;
+    private final ModelMapper mapper;
 
-    @Autowired
+    //@Autowired
     public ClanService(ClanRepositoryPortOut clanRepositoryPortOut, ModelMapper mapper) {
         this.clanRepositoryPortOut = clanRepositoryPortOut;
         this.mapper = mapper;
     }
 
     @Override
-    public ClanResponseDTO createClanById(CreateClan createClan) {
+    public ClanResponseDTO createClanId(CreateClan createClan) {
         Clan clan = mapper.map(createClan, Clan.class);
 
         /*if(!clan.hasNameClans()) {
